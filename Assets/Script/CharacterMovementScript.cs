@@ -70,6 +70,20 @@ public class CharacterMovementScript : MonoBehaviour
         }
     }
 
+    public void GrowUp(float growRate)
+    {
+        if (isAlive)
+        {
+            transform.localScale = new Vector3(transform.localScale.x + growRate, transform.localScale.y + growRate, 0);
+            IncreaseJumpStrengh((int)growRate);
+        }
+    }
+
+    private void IncreaseJumpStrengh(int increaseRate)
+    {
+        jumpStrenght += increaseRate;
+    }
+
     private float CalculateSpeed()
     {
         if (rigidbody2D.velocity.x < 0)
