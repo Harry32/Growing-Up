@@ -11,8 +11,10 @@ public class CharacterMovementScript : MonoBehaviour
     public float currentSpeed;
     public float deceleration;
     private int direction;
+    private int growthSpeed;
     private bool isWalking;
     private Vector2 inputVector;
+    private Vector3 characterSize;
     private Rigidbody2D rigidbody2D;
     
     // Start is called before the first frame update
@@ -22,13 +24,22 @@ public class CharacterMovementScript : MonoBehaviour
         isWalking = false;
         currentSpeed = 0;
         direction = 1;
+        growthSpeed = 4;
+        characterSize = transform.localScale;
+
         rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(characterSize.x != transform.localScale.x && characterSize.y != transform.localScale.y)
+        {
+            var x = Mathf.MoveTowards(Mathf.Abs(transform.localScale.x), Mathf.Abs(characterSize.x), growthSpeed * Time.deltaTime) * direction;
+            var y = Mathf.MoveTowards(transform.localScale.y, characterSize.y, growthSpeed * Time.deltaTime);
+
+            transform.localScale = new Vector3(x, y, 0);
+        }
     }
 
     private void FixedUpdate()
@@ -44,7 +55,22 @@ public class CharacterMovementScript : MonoBehaviour
 
         if(currentSpeed != 0)
         {
-            transform.localScale = new Vector3(transform.localScale.x * direction, transform.localScale.y, 0);
+            if (transform.localScale.x >= 0)
+            {
+                transform.localScale = new Vector3(transform.localScale.x * direction, transform.localScale.y, 0);
+            }
+            else
+            {
+                if (direction < 0)
+                {
+                    transform.localScale = new Vector3(transform.localScale.x * 1, transform.localScale.y, 0);
+                }
+
+                if (direction > 0)
+                {
+                    transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, 0);
+                }
+            }
         }
     }
 
@@ -74,7 +100,9 @@ public class CharacterMovementScript : MonoBehaviour
     {
         if (isAlive)
         {
-            transform.localScale = new Vector3(transform.localScale.x + growRate, transform.localScale.y + growRate, 0);
+            characterSize = new Vector3(Mathf.Abs(transform.localScale.x) + growRate, transform.localScale.y + growRate, 0);
+
+
             IncreaseJumpStrengh((int)growRate);
         }
     }
@@ -91,9 +119,13 @@ public class CharacterMovementScript : MonoBehaviour
             direction = -1;
             return Mathf.Clamp(rigidbody2D.velocity.x + deceleration, speed * -10, 0);
         }
-        else
+
+        if(rigidbody2D.velocity.x > 0)
         {
+            direction = 1;
             return Mathf.Clamp(rigidbody2D.velocity.x - deceleration, 0, speed * 10);
         }
+
+        return 0;
     }
 }
