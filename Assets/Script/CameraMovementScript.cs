@@ -25,7 +25,7 @@ public class CameraMovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(Mathf.Clamp(player.position.x, leftLimit, rightLimit), transform.position.y, transform.position.z);
+        transform.position = new Vector3(Mathf.Clamp(player.position.x, leftLimit, rightLimit), Mathf.Clamp(player.position.y, leftLimit, rightLimit), transform.position.z);
 
         if(cameraSize != camera.orthographicSize)
         {

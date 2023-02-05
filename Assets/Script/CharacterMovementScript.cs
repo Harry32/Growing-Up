@@ -128,9 +128,14 @@ public class CharacterMovementScript : MonoBehaviour
         }
     }
 
+    public void StopMoving()
+    {
+        isAlive = false;
+    }
+
     private void IncreaseJumpStrengh(int increaseRate)
     {
-        jumpStrenght += increaseRate;
+        jumpStrenght += 10;
     }
 
     private float CalculateSpeed()
