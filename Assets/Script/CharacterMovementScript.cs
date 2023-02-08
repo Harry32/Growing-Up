@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,26 +14,32 @@ public class CharacterMovementScript : MonoBehaviour
     public float deceleration;
     private int direction;
     private int growthSpeed;
+    private int size;
     private bool isWalking;
+    private bool isJumping;
     private bool isGrounded;
     private Vector2 inputVector;
     private Vector3 characterSize;
     private Rigidbody2D rigidbody2D;
     private Animator animator;
-    
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
         isAlive = true;
         isWalking = false;
         isGrounded = false;
+        isJumping = false;
         currentSpeed = 0;
         direction = 1;
         growthSpeed = 4;
+        size = 1;
         characterSize = transform.localScale;
 
         rigidbody2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -45,10 +52,11 @@ public class CharacterMovementScript : MonoBehaviour
 
         if(colliders.Any(c => c.tag == "Floor"))
         {
+            isJumping = false;
             isGrounded = true;
             animator.SetBool("isJumping", false);
         }
-        else
+        else if(isJumping)
         {
             isGrounded = false;
             animator.SetBool("isJumping", true);
@@ -99,6 +107,7 @@ public class CharacterMovementScript : MonoBehaviour
     {
         if(isAlive && context.performed && isGrounded)
         {
+            isJumping = true;
             rigidbody2D.AddForce(Vector2.up * jumpStrenght, ForceMode2D.Impulse);
         }
     }
@@ -121,8 +130,9 @@ public class CharacterMovementScript : MonoBehaviour
     {
         if (isAlive)
         {
+            audioSource.Play();
             characterSize = new Vector3(Mathf.Abs(transform.localScale.x) + growRate, transform.localScale.y + growRate, 0);
-
+            size ++;
 
             IncreaseJumpStrengh((int)growRate);
         }
@@ -131,6 +141,11 @@ public class CharacterMovementScript : MonoBehaviour
     public void StopMoving()
     {
         isAlive = false;
+    }
+
+    public int GetSize()
+    {
+        return size;
     }
 
     private void IncreaseJumpStrengh(int increaseRate)

@@ -9,7 +9,7 @@ public class GrowUpScript : MonoBehaviour
     private Vector3 positionOffset;
     private CharacterMovementScript characterMovementScript;
     private CameraMovementScript cameraMovementScript;
-
+    
     // Start is called before the first frame update
     void Start()
     {

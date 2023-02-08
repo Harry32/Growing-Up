@@ -5,7 +5,7 @@ public class CameraMovementScript : MonoBehaviour
     private float leftLimit;
     private float rightLimit;
     private float cameraSize;
-    private int zoomSpeed;
+    private int zoomSpeed;    
     private Transform player;
     private Camera camera;
 
