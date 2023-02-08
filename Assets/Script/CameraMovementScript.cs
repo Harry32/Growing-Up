@@ -4,6 +4,8 @@ public class CameraMovementScript : MonoBehaviour
 {
     private float leftLimit;
     private float rightLimit;
+    private float upLimit;
+    private float downLimit;
     private float cameraSize;
     private int zoomSpeed;    
     private Transform player;
@@ -14,6 +16,8 @@ public class CameraMovementScript : MonoBehaviour
     {
         leftLimit = 0;
         rightLimit = 1000;
+        upLimit = 1000;
+        downLimit = -6;
         zoomSpeed = 4 * 3;
 
         player = GameObject.Find("Character").GetComponent<Transform>();
@@ -25,7 +29,7 @@ public class CameraMovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(Mathf.Clamp(player.position.x, leftLimit, rightLimit), Mathf.Clamp(player.position.y, leftLimit, rightLimit), transform.position.z);
+        transform.position = new Vector3(Mathf.Clamp(player.position.x, leftLimit, rightLimit), Mathf.Clamp(player.position.y, downLimit, upLimit), transform.position.z);
 
         if(cameraSize != camera.orthographicSize)
         {

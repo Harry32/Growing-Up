@@ -43,8 +43,6 @@ public class PanelScript : MonoBehaviour
             speed = movementCurve.Evaluate(time);
             time += Time.deltaTime;
             transform.position = new Vector3(transform.position.x, transform.position.y + 5);
-            Debug.Log($"y: {transform.position.y}");
-            Debug.Log($"speed: {speed}");
         }
     }
 

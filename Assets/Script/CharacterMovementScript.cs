@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,6 +24,10 @@ public class CharacterMovementScript : MonoBehaviour
     private Rigidbody2D rigidbody2D;
     private Animator animator;
     private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip grownAudio;
+    [SerializeField]
+    private AudioClip shrinkAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -130,9 +135,25 @@ public class CharacterMovementScript : MonoBehaviour
     {
         if (isAlive)
         {
+            audioSource.clip = grownAudio;
             audioSource.Play();
             characterSize = new Vector3(Mathf.Abs(transform.localScale.x) + growRate, transform.localScale.y + growRate, 0);
             size ++;
+
+            IncreaseJumpStrengh((int)growRate);
+        }
+    }
+
+    public void ShrinkDown(float growRate)
+    {
+        if (isAlive)
+        {
+            audioSource.clip = shrinkAudio;
+            audioSource.Play();
+
+            
+            characterSize = new Vector3(Mathf.Abs(transform.localScale.x) + growRate, Mathf.Abs(transform.localScale.y + growRate), 0);
+            size--;
 
             IncreaseJumpStrengh((int)growRate);
         }
@@ -150,7 +171,14 @@ public class CharacterMovementScript : MonoBehaviour
 
     private void IncreaseJumpStrengh(int increaseRate)
     {
-        jumpStrenght += 10;
+        if (increaseRate > 0)
+        {
+            jumpStrenght += 10;
+        }
+        else
+        {
+            jumpStrenght -= 10;
+        }
     }
 
     private float CalculateSpeed()
