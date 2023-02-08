@@ -23,6 +23,7 @@ public class PanelScript : MonoBehaviour
         showPanel = false;
         hidePanel = false;
         currentScene = SceneManager.GetActiveScene().name;
+        Debug.Log(currentScene);
         transitionScript = GameObject.Find("Canvas Transition").GetComponent<TransitionScript>();
         title = GetComponentInChildren<TextMeshProUGUI>();
         buttonNextLevel = GameObject.Find("Next Level Button");

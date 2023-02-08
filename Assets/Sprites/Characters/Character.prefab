@@ -255,6 +255,10 @@ MonoBehaviour:
   speed: 15
   currentSpeed: 0
   deceleration: 2
+  grownAudio: {fileID: 8300000, guid: b118a0c972d471c4da30a691731e0eb9, type: 3}
+  shrinkAudio: {fileID: 8300000, guid: 4cab8868911398c40bcecdbe2435ac77, type: 3}
+  jumpAudio: {fileID: 8300000, guid: b763bfb284918d14f8114063cf602c36, type: 3}
+  fallAudio: {fileID: 8300000, guid: c2f19ae6ae6c53a49a8c4d5f21de1322, type: 3}
 --- !u!95 &4055617910791218935
 Animator:
   serializedVersion: 5
@@ -287,7 +291,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -13,12 +13,14 @@ public class CharacterMovementScript : MonoBehaviour
     public float speed;
     public float currentSpeed;
     public float deceleration;
+    private float timeCounter;
     private int direction;
     private int growthSpeed;
     private int size;
     private bool isWalking;
     private bool isJumping;
     private bool isGrounded;
+    private bool fallPlayed;
     private Vector2 inputVector;
     private Vector3 characterSize;
     private Rigidbody2D rigidbody2D;
@@ -28,6 +30,10 @@ public class CharacterMovementScript : MonoBehaviour
     private AudioClip grownAudio;
     [SerializeField]
     private AudioClip shrinkAudio;
+    [SerializeField]
+    private AudioClip jumpAudio;
+    [SerializeField]
+    private AudioClip fallAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -36,10 +42,12 @@ public class CharacterMovementScript : MonoBehaviour
         isWalking = false;
         isGrounded = false;
         isJumping = false;
+        fallPlayed = false;
         currentSpeed = 0;
         direction = 1;
         growthSpeed = 4;
         size = 1;
+        timeCounter = 0.1f;
         characterSize = transform.localScale;
 
         rigidbody2D = GetComponent<Rigidbody2D>();
@@ -54,17 +62,26 @@ public class CharacterMovementScript : MonoBehaviour
         rigidbody2D.GetContacts(colliders);
 
         animator.SetBool("isWalking", isWalking);
+        timeCounter -= Time.deltaTime;
 
-        if(colliders.Any(c => c.tag == "Floor"))
+        if (colliders.Any(c => c.tag == "Floor") && timeCounter <= 0)
         {
             isJumping = false;
             isGrounded = true;
             animator.SetBool("isJumping", false);
+            Debug.Log(fallPlayed);
+            if (!fallPlayed)
+            {
+                audioSource.clip = fallAudio;
+                audioSource.Play();
+                fallPlayed = true;
+            }
         }
         else if(isJumping)
         {
-            isGrounded = false;
-            animator.SetBool("isJumping", true);
+            //isGrounded = false;
+            //fallPlayed = false;
+            //animator.SetBool("isJumping", true);
         }
 
         if (characterSize.x != transform.localScale.x && characterSize.y != transform.localScale.y)
@@ -112,7 +129,13 @@ public class CharacterMovementScript : MonoBehaviour
     {
         if(isAlive && context.performed && isGrounded)
         {
+            isGrounded = false;
+            fallPlayed = false;
+            animator.SetBool("isJumping", true);
             isJumping = true;
+            timeCounter = 0.1f;
+            audioSource.clip = jumpAudio;
+            audioSource.Play();
             rigidbody2D.AddForce(Vector2.up * jumpStrenght, ForceMode2D.Impulse);
         }
     }
