@@ -72,8 +72,11 @@ public class CharacterMovementScript : MonoBehaviour
             
             if (!fallPlayed)
             {
-                audioSource.clip = fallAudio;
-                audioSource.Play();
+                if (!audioSource.isPlaying || audioSource.clip.name != "Yoi")
+                {
+                    audioSource.clip = fallAudio;
+                    audioSource.Play();
+                }
                 fallPlayed = true;
             }
         }

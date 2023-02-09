@@ -9,12 +9,18 @@ public class WinScript : MonoBehaviour
     private float triggerTopBound;
     [SerializeField]
     private GameObject splash;
+    private AudioSource audioSource;
+    private AudioSource songAudioSource;
+    [SerializeField]
+    private AudioClip winSong;
 
     void Start()
     {
         characterMovementScript = GameObject.Find("Character").GetComponent<CharacterMovementScript>();
         panelScript = GameObject.Find("Panel").GetComponent<PanelScript>();
         player = GameObject.Find("Character").GetComponent<Transform>();
+        audioSource = GetComponent<AudioSource>();
+        songAudioSource = GameObject.Find("Song").GetComponent<AudioSource>();
 
         triggerTopBound = GetComponent<BoxCollider2D>().bounds.center.y;
     }
@@ -23,6 +29,12 @@ public class WinScript : MonoBehaviour
     {
         List<Collider2D> contacts = new List<Collider2D>();
 
+        audioSource.Play();
+        songAudioSource.Stop();
+        songAudioSource.clip = winSong;
+        songAudioSource.pitch = 1;
+        songAudioSource.loop = false;
+        songAudioSource.Play();
         characterMovementScript.StopMoving();
         panelScript.ShowPanel();
         
