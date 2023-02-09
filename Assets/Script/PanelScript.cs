@@ -23,7 +23,6 @@ public class PanelScript : MonoBehaviour
         showPanel = false;
         hidePanel = false;
         currentScene = SceneManager.GetActiveScene().name;
-        Debug.Log(currentScene);
         transitionScript = GameObject.Find("Canvas Transition").GetComponent<TransitionScript>();
         title = GetComponentInChildren<TextMeshProUGUI>();
         buttonNextLevel = GameObject.Find("Next Level Button");
@@ -36,14 +35,14 @@ public class PanelScript : MonoBehaviour
         {
             speed = movementCurve.Evaluate(time);
             time += Time.deltaTime;
-            transform.position = new Vector3(transform.position.x, transform.position.y - speed);
+            transform.position = new Vector3(transform.position.x, transform.position.y - speed, 0);
         }
         
         if (hidePanel && transform.position.y < 2000)
         {
             speed = movementCurve.Evaluate(time);
             time += Time.deltaTime;
-            transform.position = new Vector3(transform.position.x, transform.position.y + 5);
+            transform.position = new Vector3(transform.position.x, Mathf.MoveTowards(transform.position.y, 2000, 10), 0);
         }
     }
 
@@ -76,7 +75,7 @@ public class PanelScript : MonoBehaviour
     {
         SceneManager.LoadScene("Main Menu");
     }
-    
+
     public void NextLevel()
     {
         string nextScene = currentScene.Split(" ")[0] + " " + (Convert.ToInt32(currentScene.Split(" ")[1]) + 1);

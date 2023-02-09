@@ -33,7 +33,7 @@ public class DropScript : MonoBehaviour
         collider.enabled = false;
         rigidbody2D.bodyType = RigidbodyType2D.Static;
 
-        if (collision.name == "Character")
+        if (collision.name == "Character" && characterMovementScript.GetSize() > 0)
         {
             characterMovementScript.ShrinkDown(shrinkRate);
             cameraMovementScript.ChangeSize(shrinkRate);

@@ -8317,6 +8317,64 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &726121656
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 726121658}
+  - component: {fileID: 726121657}
+  m_Layer: 0
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &726121657
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726121656}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 24.36, y: 0.06}
+  m_EdgeRadius: 0
+--- !u!4 &726121658
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726121656}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.74, y: 27.04, z: -0.12485914}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &740141258
 GameObject:
   m_ObjectHideFlags: 0
@@ -18008,6 +18066,50 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3056900322153127906, guid: 882667507aed0a34facd9f5187e0764e, type: 3}
+      propertyPath: m_Points.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3056900322153127906, guid: 882667507aed0a34facd9f5187e0764e, type: 3}
+      propertyPath: m_Points.Array.data[6].x
+      value: 2.499273
+      objectReference: {fileID: 0}
+    - target: {fileID: 3056900322153127906, guid: 882667507aed0a34facd9f5187e0764e, type: 3}
+      propertyPath: m_Points.Array.data[6].y
+      value: 0.45391086
+      objectReference: {fileID: 0}
+    - target: {fileID: 3056900322153127906, guid: 882667507aed0a34facd9f5187e0764e, type: 3}
+      propertyPath: m_Points.Array.data[7].x
+      value: 2.5028841
+      objectReference: {fileID: 0}
+    - target: {fileID: 3056900322153127906, guid: 882667507aed0a34facd9f5187e0764e, type: 3}
+      propertyPath: m_Points.Array.data[7].y
+      value: -0.11062051
+      objectReference: {fileID: 0}
+    - target: {fileID: 3056900322153127906, guid: 882667507aed0a34facd9f5187e0764e, type: 3}
+      propertyPath: m_Points.Array.data[8].x
+      value: 2.31448
+      objectReference: {fileID: 0}
+    - target: {fileID: 3056900322153127906, guid: 882667507aed0a34facd9f5187e0764e, type: 3}
+      propertyPath: m_Points.Array.data[8].y
+      value: -0.43438852
+      objectReference: {fileID: 0}
+    - target: {fileID: 3056900322153127906, guid: 882667507aed0a34facd9f5187e0764e, type: 3}
+      propertyPath: m_Points.Array.data[9].x
+      value: 2.0874686
+      objectReference: {fileID: 0}
+    - target: {fileID: 3056900322153127906, guid: 882667507aed0a34facd9f5187e0764e, type: 3}
+      propertyPath: m_Points.Array.data[9].y
+      value: -0.61372566
+      objectReference: {fileID: 0}
+    - target: {fileID: 3056900322153127906, guid: 882667507aed0a34facd9f5187e0764e, type: 3}
+      propertyPath: m_Points.Array.data[10].x
+      value: 1.8733109
+      objectReference: {fileID: 0}
+    - target: {fileID: 3056900322153127906, guid: 882667507aed0a34facd9f5187e0764e, type: 3}
+      propertyPath: m_Points.Array.data[10].y
+      value: -0.6965356
+      objectReference: {fileID: 0}
     - target: {fileID: 3056900322444463348, guid: 882667507aed0a34facd9f5187e0764e, type: 3}
       propertyPath: m_Name
       value: Tea Cup

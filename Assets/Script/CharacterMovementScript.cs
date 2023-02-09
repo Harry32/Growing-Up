@@ -69,7 +69,7 @@ public class CharacterMovementScript : MonoBehaviour
             isJumping = false;
             isGrounded = true;
             animator.SetBool("isJumping", false);
-            Debug.Log(fallPlayed);
+            
             if (!fallPlayed)
             {
                 audioSource.clip = fallAudio;
