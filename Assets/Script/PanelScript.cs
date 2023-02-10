@@ -35,14 +35,17 @@ public class PanelScript : MonoBehaviour
         {
             speed = movementCurve.Evaluate(time);
             time += Time.deltaTime;
-            transform.position = new Vector3(transform.position.x, transform.position.y - speed, 0);
+            transform.position = new Vector3(transform.position.x, transform.position.y - (500 * Time.deltaTime), 0);
         }
         
         if (hidePanel && transform.position.y < 2000)
         {
             speed = movementCurve.Evaluate(time);
             time += Time.deltaTime;
-            transform.position = new Vector3(transform.position.x, Mathf.MoveTowards(transform.position.y, 2000, 10), 0);
+            Debug.Log(showPanel);
+            Debug.Log($"Speed: {Mathf.MoveTowards(transform.position.y, 2000, 500 * Time.deltaTime)}");
+            Debug.Log($"Y: {transform.position.y}");
+            transform.position = new Vector3(transform.position.x, Mathf.MoveTowards(transform.position.y, 2000, 1000 * Time.deltaTime), 0);
         }
     }
 
@@ -80,7 +83,7 @@ public class PanelScript : MonoBehaviour
     {
         string nextScene = currentScene.Split(" ")[0] + " " + (Convert.ToInt32(currentScene.Split(" ")[1]) + 1);
         time = 0;
-        hidePanel = true;
+        HidePanel();
 
         transitionScript.TransitionOut(nextScene);
     }
