@@ -30,7 +30,7 @@ public class PanelScript : MonoBehaviour
         transitionScript = GameObject.Find("Canvas Transition").GetComponent<TransitionScript>();
         title = GetComponentInChildren<TextMeshProUGUI>();
         buttonNextLevel = GameObject.Find("Next Level Button");
-        transform.position = new Vector3(transform.position.x, Screen.height + 450, 0);
+        transform.position = new Vector3(transform.position.x, Screen.height + 650, 0);
         refPosition = transform.position;
         centerPosition = new Vector3(Screen.width / 2, Screen.height / 2, 0);
         progress = 0;

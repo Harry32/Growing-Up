@@ -32610,9 +32610,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9158248904172401660, guid: c04a3b7342542c0448d89780bbe4c9ac, type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9158248904172401662, guid: c04a3b7342542c0448d89780bbe4c9ac, type: 3}
       propertyPath: m_Name
       value: Complete Screen
+      objectReference: {fileID: 0}
+    - target: {fileID: 9158248904775900871, guid: c04a3b7342542c0448d89780bbe4c9ac, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1400
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c04a3b7342542c0448d89780bbe4c9ac, type: 3}
