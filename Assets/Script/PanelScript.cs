@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PanelScript : MonoBehaviour
 {
+    const float MOVEMENT_DURATION = 1.5f;
     private float time;
     private float speed;
     private bool showPanel;
@@ -15,6 +16,9 @@ public class PanelScript : MonoBehaviour
     private TransitionScript transitionScript;
     private TextMeshProUGUI title;
     private GameObject buttonNextLevel;
+    private Vector3 refPosition;
+    private Vector3 centerPosition;
+    private float progress;
 
     // Start is called before the first frame update
     void Start()
@@ -26,26 +30,45 @@ public class PanelScript : MonoBehaviour
         transitionScript = GameObject.Find("Canvas Transition").GetComponent<TransitionScript>();
         title = GetComponentInChildren<TextMeshProUGUI>();
         buttonNextLevel = GameObject.Find("Next Level Button");
+        transform.position = new Vector3(transform.position.x, Screen.height + 450, 0);
+        refPosition = transform.position;
+        centerPosition = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+        progress = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(showPanel && transform.position.y > 550)
+        if(showPanel)
         {
-            speed = movementCurve.Evaluate(time);
+            progress += Mathf.Clamp(Time.deltaTime / MOVEMENT_DURATION, 0, 1);
+
             time += Time.deltaTime;
-            transform.position = new Vector3(transform.position.x, transform.position.y - (500 * Time.deltaTime), 0);
+            speed = movementCurve.Evaluate(time);
+
+            transform.position = Vector3.Lerp(refPosition, centerPosition, progress);
+
+            if(progress >= 1)
+            {
+                progress = 0;
+                showPanel = false;
+            }
         }
         
-        if (hidePanel && transform.position.y < 2000)
+        if (hidePanel)
         {
-            speed = movementCurve.Evaluate(time);
+            progress += Mathf.Clamp(Time.deltaTime / (MOVEMENT_DURATION - 0.5f), 0, 1);
+
             time += Time.deltaTime;
-            Debug.Log(showPanel);
-            Debug.Log($"Speed: {Mathf.MoveTowards(transform.position.y, 2000, 500 * Time.deltaTime)}");
-            Debug.Log($"Y: {transform.position.y}");
-            transform.position = new Vector3(transform.position.x, Mathf.MoveTowards(transform.position.y, 2000, 1000 * Time.deltaTime), 0);
+            speed = movementCurve.Evaluate(time);
+            
+            transform.position = Vector3.Lerp(centerPosition, refPosition, progress);
+
+            if (progress >= 1)
+            {
+                progress = 0;
+                hidePanel = false;
+            }
         }
     }
 
@@ -60,7 +83,7 @@ public class PanelScript : MonoBehaviour
         showPanel = true;
         hidePanel = false;
         title.SetText("Level Failed");
-        buttonNextLevel.active = false;
+        buttonNextLevel.SetActive(false);
     }
 
     public void HidePanel()

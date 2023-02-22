@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class TransitionScript : MonoBehaviour
 {
+    private Camera camera;
     private Image transitionImage;
     private float transitionSpeed;
     private bool startTransitionIn;

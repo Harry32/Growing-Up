@@ -46,6 +46,11 @@ public class MainMenuScript : MonoBehaviour
         
     }
 
+    public void Options()
+    {
+        SceneManager.LoadScene("Options");
+    }
+
     public void Credits()
     {
         SceneManager.LoadScene("Level 4");
