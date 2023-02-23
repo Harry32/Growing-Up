@@ -15,41 +15,29 @@ public class CharacterMovementScript : MonoBehaviour
     private int growthSpeed;
     private int size;
     private bool isWalking;
-    private bool isJumping;
     private bool isGrounded;
-    private bool fallPlayed;
     private Vector2 inputVector;
     private Vector3 characterSize;
     private Rigidbody2D rigidbody2D;
-    private Animator animator;
-    private AudioSource audioSource;
-    [SerializeField]
-    private AudioClip grownAudio;
-    [SerializeField]
-    private AudioClip shrinkAudio;
-    [SerializeField]
-    private AudioClip jumpAudio;
-    [SerializeField]
-    private AudioClip fallAudio;
+    private CharacterAudioScript characterBehaviorScript;
+    private CharacterAnimationScript characterAnimationScript;
 
     // Start is called before the first frame update
     void Start()
     {
+        rigidbody2D = GetComponent<Rigidbody2D>();
+        characterBehaviorScript = GetComponent<CharacterAudioScript>();
+        characterAnimationScript = GetComponent<CharacterAnimationScript>();
+
         isAlive = true;
         isWalking = false;
         isGrounded = false;
-        isJumping = false;
-        fallPlayed = false;
         currentSpeed = 0;
         direction = 1;
         growthSpeed = 4;
         size = 1;
         timeCounter = 0.1f;
         characterSize = transform.localScale;
-
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -58,30 +46,13 @@ public class CharacterMovementScript : MonoBehaviour
         List<Collider2D> colliders = new List<Collider2D>();
         rigidbody2D.GetContacts(colliders);
 
-        animator.SetBool("isWalking", isWalking);
         timeCounter -= Time.deltaTime;
 
         if (colliders.Any(c => c.tag == "Floor") && timeCounter <= 0)
         {
-            isJumping = false;
             isGrounded = true;
-            animator.SetBool("isJumping", false);
-            
-            if (!fallPlayed)
-            {
-                if (!audioSource.isPlaying || audioSource.clip.name != "Yoi")
-                {
-                    audioSource.clip = fallAudio;
-                    audioSource.Play();
-                }
-                fallPlayed = true;
-            }
-        }
-        else if(isJumping)
-        {
-            //isGrounded = false;
-            //fallPlayed = false;
-            //animator.SetBool("isJumping", true);
+            characterAnimationScript.StopJumpAnimation();
+            characterBehaviorScript.PlayFallAudio();
         }
 
         if (characterSize.x != transform.localScale.x && characterSize.y != transform.localScale.y)
@@ -130,12 +101,10 @@ public class CharacterMovementScript : MonoBehaviour
         if(isAlive && context.performed && isGrounded)
         {
             isGrounded = false;
-            fallPlayed = false;
-            animator.SetBool("isJumping", true);
-            isJumping = true;
+            characterBehaviorScript.CanPlayFall();
+            characterAnimationScript.PlayJumpAnimation();
             timeCounter = 0.1f;
-            audioSource.clip = jumpAudio;
-            audioSource.Play();
+            characterBehaviorScript.PlayJumpAudio();
             rigidbody2D.AddForce(Vector2.up * jumpStrenght, ForceMode2D.Impulse);
         }
     }
@@ -146,11 +115,13 @@ public class CharacterMovementScript : MonoBehaviour
         {
             inputVector = context.ReadValue<Vector2>();
             isWalking = true;
+            characterAnimationScript.PlayWalkAnimation();
         }
 
         if(context.canceled)
         {
             isWalking = false;
+            characterAnimationScript.StopWalkAnimation();
         }
     }
 
@@ -158,8 +129,7 @@ public class CharacterMovementScript : MonoBehaviour
     {
         if (isAlive)
         {
-            audioSource.clip = grownAudio;
-            audioSource.Play();
+            characterBehaviorScript.PlayGrowAudio();
             characterSize = new Vector3(Mathf.Abs(transform.localScale.x) + growRate, transform.localScale.y + growRate, 0);
             size ++;
 
@@ -171,10 +141,9 @@ public class CharacterMovementScript : MonoBehaviour
     {
         if (isAlive)
         {
-            audioSource.clip = shrinkAudio;
-            audioSource.Play();
+            characterBehaviorScript.PlayShrinkAudio();
 
-            
+
             characterSize = new Vector3(Mathf.Abs(transform.localScale.x) + growRate, Mathf.Abs(transform.localScale.y + growRate), 0);
             size--;
 

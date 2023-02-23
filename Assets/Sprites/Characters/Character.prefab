@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 4055617910791218941}
   - component: {fileID: 4055617910791218934}
   - component: {fileID: 4055617910791218929}
+  - component: {fileID: 1017449002889426872}
+  - component: {fileID: 1386186601441931662}
   - component: {fileID: 4055617910791218935}
   - component: {fileID: -7947352797002345140}
   m_Layer: 0
@@ -255,10 +257,34 @@ MonoBehaviour:
   speed: 15
   currentSpeed: 0
   deceleration: 2
-  grownAudio: {fileID: 8300000, guid: b118a0c972d471c4da30a691731e0eb9, type: 3}
+--- !u!114 &1017449002889426872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4055617910791218940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34b5d841a669e964e8c110c5e8696b5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  growAudio: {fileID: 8300000, guid: b118a0c972d471c4da30a691731e0eb9, type: 3}
   shrinkAudio: {fileID: 8300000, guid: 4cab8868911398c40bcecdbe2435ac77, type: 3}
   jumpAudio: {fileID: 8300000, guid: b763bfb284918d14f8114063cf602c36, type: 3}
   fallAudio: {fileID: 8300000, guid: c2f19ae6ae6c53a49a8c4d5f21de1322, type: 3}
+--- !u!114 &1386186601441931662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4055617910791218940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b09d8f6c17bd44145ba7c4b14392f052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &4055617910791218935
 Animator:
   serializedVersion: 5
