@@ -42,7 +42,7 @@ public class DropScript : MonoBehaviour
         if (collision.name == "Character" && characterMovementScript.GetSize() > 0)
         {
             characterMovementScript.ShrinkDown(shrinkRate);
-            cameraMovementScript.ChangeSize(shrinkRate);
+            cameraMovementScript.ChangeSize(shrinkRate * 10);
         }
 
         Destroy(this.gameObject, 0.5f);

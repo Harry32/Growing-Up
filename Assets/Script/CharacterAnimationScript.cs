@@ -1,16 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterAnimationScript : MonoBehaviour
 {
     private Animator animator;
+    private Animator effectsAnimator;
     private bool isWalking;
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GameObject.Find("CharacterSprite").GetComponent<Animator>();
+        effectsAnimator = GameObject.Find("EffectAnimations").GetComponent<Animator>();
 
         isWalking = false;
     }
@@ -34,10 +34,13 @@ public class CharacterAnimationScript : MonoBehaviour
     public void PlayJumpAnimation()
     {
         animator.SetBool("isJumping", true);
+        effectsAnimator.SetTrigger("Stretch");
+        
     }
 
     public void StopJumpAnimation()
     {
         animator.SetBool("isJumping", false);
+        effectsAnimator.SetTrigger("Squash");
     }
 }

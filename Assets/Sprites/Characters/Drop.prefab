@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c666a9f8f9e0045b697e4942940607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shrinkRate: -2
+  shrinkRate: -0.2
 --- !u!82 &-3375246500932503831
 AudioSource:
   m_ObjectHideFlags: 0

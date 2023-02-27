@@ -48,11 +48,17 @@ public class CharacterMovementScript : MonoBehaviour
 
         timeCounter -= Time.deltaTime;
 
-        if (colliders.Any(c => c.tag == "Floor") && timeCounter <= 0)
+        if (colliders.Any(c => c.tag == "Floor") && timeCounter <= 0 && !isGrounded)
         {
             isGrounded = true;
             characterAnimationScript.StopJumpAnimation();
             characterBehaviorScript.PlayFallAudio();
+        }
+
+        if (!colliders.Any(c => c.tag == "Floor") && isGrounded)
+        {
+            isGrounded = false;
+            characterBehaviorScript.CanPlayFall();
         }
 
         if (characterSize.x != transform.localScale.x && characterSize.y != transform.localScale.y)
