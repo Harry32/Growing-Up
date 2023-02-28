@@ -21,6 +21,7 @@ public class CharacterMovementScript : MonoBehaviour
     private Rigidbody2D rigidbody2D;
     private CharacterAudioScript characterBehaviorScript;
     private CharacterAnimationScript characterAnimationScript;
+    private ParticleSystem particleSystem;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,7 @@ public class CharacterMovementScript : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
         characterBehaviorScript = GetComponent<CharacterAudioScript>();
         characterAnimationScript = GetComponent<CharacterAnimationScript>();
+        particleSystem = GetComponentInChildren<ParticleSystem>();
 
         isAlive = true;
         isWalking = false;
@@ -53,6 +55,7 @@ public class CharacterMovementScript : MonoBehaviour
             isGrounded = true;
             characterAnimationScript.StopJumpAnimation();
             characterBehaviorScript.PlayFallAudio();
+            particleSystem.Play();
         }
 
         if (!colliders.Any(c => c.tag == "Floor") && isGrounded)
@@ -106,6 +109,7 @@ public class CharacterMovementScript : MonoBehaviour
     {
         if(isAlive && context.performed && isGrounded)
         {
+            particleSystem.Play();
             isGrounded = false;
             characterBehaviorScript.CanPlayFall();
             characterAnimationScript.PlayJumpAnimation();
