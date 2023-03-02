@@ -4,6 +4,7 @@ public class CharacterAnimationScript : MonoBehaviour
 {
     private Animator animator;
     private Animator effectsAnimator;
+    private ParticleSystem particleSystem;
     private bool isWalking;
 
     // Start is called before the first frame update
@@ -11,6 +12,7 @@ public class CharacterAnimationScript : MonoBehaviour
     {
         animator = GameObject.Find("CharacterSprite").GetComponent<Animator>();
         effectsAnimator = GameObject.Find("EffectAnimations").GetComponent<Animator>();
+        particleSystem = GetComponentInChildren<ParticleSystem>();
 
         isWalking = false;
     }
@@ -35,12 +37,13 @@ public class CharacterAnimationScript : MonoBehaviour
     {
         animator.SetBool("isJumping", true);
         effectsAnimator.SetTrigger("Stretch");
-        
+        particleSystem.Play();
     }
 
     public void StopJumpAnimation()
     {
         animator.SetBool("isJumping", false);
         effectsAnimator.SetTrigger("Squash");
+        particleSystem.Play();
     }
 }
